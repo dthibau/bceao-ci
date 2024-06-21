@@ -1,0 +1,229 @@
+{
+    "realm": "poc",
+    "enabled": true,
+    "users": [
+        {
+            "username": "agent",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "secret"
+                }
+            ],
+            "realmRoles": [
+                "AGENT"
+            ]
+        },
+        {
+            "username": "manager",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "secret"
+                }
+            ],
+            "realmRoles": [
+                "MANAGER"
+            ]
+        },
+        {
+            "username": "banque",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "secret"
+                }
+            ],
+            "realmRoles": [
+                "BANQUE"
+            ]
+        }
+    ],
+    "roles": {
+        "realm": [
+            {
+                "name": "MANAGER",
+                "description": "Agent BCEAO n+1"
+            },
+            {
+                "name": "AGENT",
+                "description": "Agent BCEAO "
+            },
+            {
+                "name": "BANQUE",
+                "description": "Utilisateur banque"
+            }
+        ]
+    },
+    "defaultRoles": [
+        "AGENT"
+    ],
+    "clients": [
+        {
+            "clientId": "jmixgateway",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [
+                "*"
+            ],
+            "webOrigins": [
+                "*"
+            ],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": false,
+            "defaultClientScopes": [
+                "web-origins",
+                "acr",
+                "profile",
+                "roles",
+                "microprofile-jwt",
+                "email"
+              ]
+        },
+        {
+            "clientId": "compensation",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        },
+        {
+            "clientId": "operation",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "protocol": "openid-connect",
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        },
+        {
+            "clientId": "banque",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        },
+        {
+            "clientId": "reglement",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        },
+        {
+            "clientId": "notification",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        },
+        {
+            "clientId": "pays",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        }
+    ]
+}

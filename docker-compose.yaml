@@ -1,0 +1,117 @@
+services:
+  cloud-config-server:
+    image: dthibau/cloud-config:3.2.2
+    environment:
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://gitlab.com/sdi-poc/sica-microservices/config.git
+    ports:
+      - 8888:8888
+    networks:
+      - poc-integration
+
+  eureka:
+    image: dthibau/eureka:3.2.2
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://cloud-config-server:8888
+      - SPRING_CLOUD_CONFIG_FAILFAST=true
+    ports:
+      - "1111:1111"
+    depends_on:
+      - cloud-config-server
+    restart: on-failure
+    networks:
+      - poc-integration
+
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    networks:
+      - ci
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.4
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_KRAFT_CLUSTER_ID=abcdefghijklmnopqrstuv
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+    networks:
+      - poc-integration
+
+  redpanda:
+    image : docker.redpanda.com/redpandadata/console:latest
+    ports:
+      - 8079:8080
+    environment:
+      - KAFKA_BROKERS=kafka:9092
+    networks:
+      - poc-integration
+
+  keycloak:
+    image: quay.io/keycloak/keycloak
+    command: ["start-dev", "--import-realm"]
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports: 
+      - 8180:8080
+    volumes: 
+      - .:/opt/keycloak/data/import
+    networks:
+      - poc-integration
+
+  reglement-postgresql:
+    image: postgres:15.1
+    volumes:
+      - reglement_db:/var/lib/postgresql
+      - ./schema-reglement.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - poc-integration
+    environment:
+      - POSTGRES_DB=reglement_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "90:80"
+    volumes:
+       - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - reglement-postgresql
+    networks:
+      - poc-integration
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  kafka_data:
+    driver: local
+  reglement_db: 
+  pgadmin:
+
+  
+networks:
+  poc-integration:
+    name: poc-integration
+  ci:
