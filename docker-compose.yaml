@@ -63,7 +63,7 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak
-    command: ["start-dev", "--import-realm", "--http-enabled=true", "--hostname-strict=false", "--hostname-strict-backchannel=false"]
+    command: ["start-dev", "--import-realm", "--http-enabled=true"]
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
@@ -71,6 +71,7 @@ services:
       - 8180:8080
     volumes: 
       - .:/opt/keycloak/data/import
+      - ./application.properties:/opt/keycloak/conf/application.properties
     networks:
       - poc-integration
 
