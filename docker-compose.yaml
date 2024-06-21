@@ -70,6 +70,7 @@ services:
     ports: 
       - 8180:8080
     volumes: 
+      - keycloak-data:/opt/keycloak/data
       - .:/opt/keycloak/data/import
       - ./application.properties:/opt/keycloak/conf/application.properties
     networks:
@@ -106,10 +107,12 @@ volumes:
   sonarqube_data:
   sonarqube_logs:
   sonarqube_extensions:
+  keycloak-data: 
   kafka_data:
     driver: local
   reglement_db: 
   pgadmin:
+
 
   
 networks:
