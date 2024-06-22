@@ -87,6 +87,8 @@ services:
       - POSTGRES_DB=reglement_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5462:5432"
 
   pgadmin4:
     image: dpage/pgadmin4
@@ -101,7 +103,11 @@ services:
       - reglement-postgresql
     networks:
       - poc-integration
-
+  smtp:
+    container_name: smtp
+    image: dthibau/fake-smtp:1.0
+    ports:
+      - 2525:2525 
 volumes:
   sonarqube_conf:
   sonarqube_data:

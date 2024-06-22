@@ -1,0 +1,12 @@
+version: "2"
+authtoken: 2iCGx63FVPznTDijEZBkUnD6ofJ_7cNVyWh16YKjLcmfCKEfo  # Ajoutez votre token d'authentification Ngrok ici
+tunnels:
+  jenkins:
+    proto: http
+    addr: 8082  # Le port de votre première application
+  sonarqube:
+    proto: http
+    addr: 9000  # Le port de votre deuxième application
+  eureka:
+    proto: http
+    addr: 1111  # Le port de votre deuxième application
