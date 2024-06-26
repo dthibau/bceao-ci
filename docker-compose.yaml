@@ -76,6 +76,39 @@ services:
     networks:
       - poc-integration
 
+  compensation-postgresql:
+    image: postgres:15.1
+    volumes:
+      - compense_db:/var/lib/postgresql
+    networks:
+      - poc-integration
+    environment:
+      - POSTGRES_DB=compense_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  operation-postgresql:
+    image: postgres:15.1
+    volumes:
+      - operation_db:/var/lib/postgresql
+    networks:
+      - poc-integration
+    environment:
+      - POSTGRES_DB=db_operation
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  pays-postgresql:
+    image: postgres:15.1
+    volumes:
+      - pays_db:/var/lib/postgresql
+    networks:
+      - poc-integration
+    environment:
+      - POSTGRES_DB=pays_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
   reglement-postgresql:
     image: postgres:15.1
     volumes:
@@ -89,6 +122,26 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5462:5432"
+  gateway-postgresql:
+    image: postgres:15.1
+    volumes:
+      - gateway_db:/var/lib/postgresql
+    networks:
+      - poc-integration
+    environment:
+      - POSTGRES_DB=gatewaydb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=  
+  banque-bd:
+    image: postgres:15.1
+    volumes:
+      - banque_db:/var/lib/postgresql
+    networks:
+      - poc-integration
+    environment:
+      - POSTGRES_DB=banque
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   pgadmin4:
     image: dpage/pgadmin4
@@ -96,7 +149,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
       PGADMIN_DEFAULT_PASSWORD: "admin"
     ports:
-      - "90:80"
+      - "9001:80"
     volumes:
        - pgadmin:/var/lib/pgadmin
     depends_on:
@@ -117,6 +170,11 @@ volumes:
   kafka_data:
     driver: local
   reglement_db: 
+  gateway_db:
+  banque_db:
+  compense_db:
+  operation_db:
+  pays_db:
   pgadmin:
 
 
