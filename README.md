@@ -12,6 +12,7 @@
   - En installant les plugins par défaut
   - En installant les plugins suivants :
     - Blue Ocean
+    - Docker Pipeline
     - Pipeline Utility Test
     - Publish HTML
 - Compléter l'installation de Jenkins en :
@@ -21,3 +22,7 @@
     - Se connecter en tant qu'admin sur SonarQube : http://localhost:9000
     - Dans les préférences du compte -> security : Générer un jeton 'Analyse globale', Pas de révocation
     - Dans Jenkins, Ajouter un crédentiels de type Secret text nommé SONAR_TOKEN avec la valeur du jeton SONAR
+  - Définir un crédentiels permettant de se connecter à tous les dépôts des projets
+    - Cela peut être une clé ssh sur l'utiisateur démarrant Jenkins
+- Configurer les projets :
+  - Pour chaque projet, créer un job multi-branche qui pointe vers le dépôt du projet avec une période de scan raisonnable
